@@ -17,6 +17,7 @@ public $sub_seccion;
 			$sub_secciones=array(
 					0=>array('title'=>'Inicio'), //Funcion Index
 					/*'sub_seccion1'=>array('title'=>'TITULO','requiere_funcion'=>true,'requiere_vista'=>true),' 
+					
 							al colocar true en requiere funcion, se debe crear la funcion en la clase... funcion sub_seccion1(){}
 							, al colocar el requiere vista en true, es para hacer uso de un diseño...*/
 			);

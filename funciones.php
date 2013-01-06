@@ -125,9 +125,16 @@ class funciones{
 
 function bbc($str){
 	global $carateres_raros;
+	$versionPHP=(int) str_replace('.','',PHP_VERSION);
+
    if (empty($carateres_raros)){
+	if($versionPHP[0]>=5 && $versionPHP[1]>=3 && $versionPHP[2]>=4){
       $todas = get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES,'ISO-8859-15');
       $etiquetas = get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES,'ISO-8859-15');
+	 }else{
+      $todas = get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES);
+      $etiquetas = get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES);		
+	 }
       $carateres_raros= array_diff($todas, $etiquetas);
    }
    $str = strtr($str, $carateres_raros);
@@ -139,6 +146,54 @@ function escapar($str){
 }
 
 
+//**** LOAD CSS ****//
+	function loadCss($file,$ruta=NULL,$hash=true){
+		global $default;
+		
+		if($ruta==NULL)
+			$ruta=$default['weburl'].'/temas/'.$default['theme_default'].'/css/';
 
 
+	preg_match('@^(?:http://)?([^/]+)@i', $ruta, $ruta0);
+
+	if(preg_match('/[^.]+\.[^.]+$/',@$ruta0[1])){
+		preg_match('/[^.]+\.[^.]+$/',@$ruta0[1], $ruta0);
+		$ruta0=$ruta0[0];
+	}else
+		$ruta0=$ruta0[1];
+			
+			
+		if(@$ruta0!=$_SERVER['HTTP_HOST'])
+			$hash=false;
+
+		
+	echo '<link rel="stylesheet" type="text/css" href="'.$ruta.$file.'.css'.($hash==true? '?'.filemtime(dirname(__FILE__).'/temas/'.$default['theme_default'].'/css/'.$file.'.css'):'').'"/>';
+	
+	}
+	
+	
+//**** LOAD JS ****//
+	function loadJs($file,$ruta=NULL,$hash=true){
+		global $default;
+		
+		if($ruta==NULL)
+			$ruta=$default['weburl'].'/temas/'.$default['theme_default'].'/js/';
+
+
+	preg_match('@^(?:http://)?([^/]+)@i', $ruta, $ruta0);
+
+	if(preg_match('/[^.]+\.[^.]+$/',@$ruta0[1])){
+		preg_match('/[^.]+\.[^.]+$/',@$ruta0[1], $ruta0);
+		$ruta0=$ruta0[0];
+	}else
+		$ruta0=$ruta0[1];
+			
+			
+		if(@$ruta0!=$_SERVER['HTTP_HOST'])
+			$hash=false;
+
+		
+	echo '<script type="text/javascript" src="'.$ruta.$file.'.js'.($hash==true? '?'.filemtime(dirname(__FILE__).'/temas/'.$default['theme_default'].'/js/'.$file.'.js'):'').'"></script>';
+	
+	}
 ?>

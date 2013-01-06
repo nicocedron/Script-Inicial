@@ -1,7 +1,7 @@
 <?php
 
 $default=array(
-'weburl'=>'/script_limpio/Nuevo', //url sin barra "/" al final
+'weburl'=>'http://localhost/script_limpio/Script-Inicial', //url sin barra "/" al final
 'webname'=>'Script Limpio', //Nombre de la web
 'webdescripcion'=>'', //Descripcion de la web
 'web_master_email'=>'', //email del webmaster
